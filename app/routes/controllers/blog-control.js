@@ -1,5 +1,5 @@
 // This gets to a directory by traveling two directories up to the app directory back down to models then to pick out blog-post
-var post = require("../../app/models/blog-post");
+var post = require("../../models/blog-post");
 
 function bPost(req, res) {
 	new post({
@@ -60,6 +60,25 @@ var blogPages = {
 	}
 };
 
+function createBlogPost(req, res){
+	new Post({
+		title: req.body.blogTitle,
+		post: req.body.postBody,
+		date: {
+			month: today().month,
+			day: today().day,
+			year: today().year
+		},
+		user: req.user.username
+	}).save(function(err){
+		if(err){
+			console.log(err);
+		} else {
+			res.redirect("/index")
+		}
+	});
+}
+
 function updateBlogPost(req, res){
 	Post.update({"_id": req.query.id}, {$set: {"post": req.body.postBody, "title": req.body.blogTitle}}, function(err, doc){
 		console.log(doc);
@@ -82,8 +101,8 @@ function deleteBlogPost(req, res){
 }
 
 exports.create = createBlogPost;
-exports.create = updateBlogPost;
-exports.create = deleteBlogPost;
+exports.update = updateBlogPost;
+exports.delete = deleteBlogPost;
 
 exports.createPage = blogPages.create;
 exports.updatePage = blogPages.update;

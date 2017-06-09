@@ -2,5 +2,9 @@
 	"index": "/index",
 	"create": "/create",
 	"update": "/update",
-	"delete": "/delete"
+	"delete": "/delete",
+	"signup": "/signup",
+	"home": "/",
+	"login": "/login",
+	"post": "/post"
 }

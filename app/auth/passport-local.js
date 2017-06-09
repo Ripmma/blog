@@ -1,5 +1,5 @@
 var LocalStrategy = require("passport-local").Strategy,
-	User = require("../models/userModel"),
+	User = require("../models/user"),
 	bcrypt = require("bcrypt-nodejs");
 
 module.exports = function(passport){
@@ -7,7 +7,7 @@ module.exports = function(passport){
 		done(null, user);
 	});
 
-	passport.deserializer(function(id, done){
+	passport.deserializeUser(function(id, done){
 		done(null, id);
 	});
 

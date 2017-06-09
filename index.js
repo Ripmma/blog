@@ -8,6 +8,8 @@ var express = require("express"),
 	routes = require("./app/routes/routes"),
 	bcrypt = require("bcrypt-nodejs"),
 	path = require("path"),
+	methodOverride = require("method-override"),
+	auth = require("./app/auth/passport-local")
 	app = express();
 
 // Routes towards a the client file that contains the css and javascript files
@@ -28,10 +30,13 @@ app.use(session({
 	saveUninitialized: true
 }));
 
+app.use(methodOverride('_method'));
+
 app.use(passport.initialize());
 app.use(passport.session());
 
-routes(app);
+auth(passport);
+routes(app, passport);
 
 mongoose.connect("mongodb://localhost/user");
 

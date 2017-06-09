@@ -1,17 +1,5 @@
-var pages = {
-	index: function(req, res){
-		res.render("index");
-	},
-	login: function(req, res){
-		res.render("login");
-	},
-	signup: function(req, res){
-		res.render("signup");
-	}
-}
-
-var auth = require("../..auth/local-signup");
-var Post = require("../..models/blogModel");
+var auth = require("../../auth/local-signup");
+var Post = require("../../models/blog-post");
 
 var pages = {
 	home: function(req, res){
@@ -29,7 +17,7 @@ var pages = {
 			}
 		});
 	},
-	login: function(req, ren){
+	login: function(req, res){
 		res.render("login");
 	},
 	signup: function(req, res){
@@ -38,7 +26,7 @@ var pages = {
 			pass: req.body.password,
 			first: req.body.firstName,
 			last: req.body.lastName
-		} function(data){
+		}, function(data){
 			if(data.success){
 				res.json({
 					"success": "All good"
